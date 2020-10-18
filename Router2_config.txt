@@ -1,0 +1,13 @@
+sudo nano /usr/local/etc/r1ospfd.conf  
+
+
+hostname r1_ospfd
+password 123
+enable password 123
+!
+router ospf
+  ospf router-id 30.0.0.2
+  network 30.0.0.0/24 area 0
+  network 50.0.0.0/24 area 0
+debug ospf event
+log file /usr/local/etc/r1ospfd.log

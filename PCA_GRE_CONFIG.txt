@@ -1,0 +1,32 @@
+$sudo nano /etc/network/interfaces
+
+# Tunnel-R1 configuration
+auto swp1 #underlay interface for tunnel
+iface swp1 inet static
+    link-speed 100000
+    link-duplex full
+    link-autoneg off
+    address 192.168.159.130/24
+ 
+auto tunnel_1_1 #overlay interface for tunnel
+iface tunnel_1_1 inet static
+    address 30.0.0.1/24
+    pre-up ip tunnel add tunnel_1_1 mode gre remote 192.168.159.129 local   192.168.159.130 ttl 255
+    post-up ip route add 30.0.0.0/24 dev tunnel_1_1
+    post-down ip tunnel del tunnel_1_1
+ 
+# Tunnel-R2 configuration
+auto swp1 #underlay interface for tunnel
+iface swp1 inet static
+    link-speed 10000
+    link-duplex full
+    link-autoneg off
+    address 192.168.159.130/24
+auto tunnel_1_2 #overlay interface for tunnel
+iface tunnel_1_2 inet static
+    address 40.0.0.1/24
+    pre-up ip tunnel add tunnel_1_2 mode gre local 192.168.159.130 remote 192.168.159.131 ttl 255
+    post-up ip route add 40.0.0.0/24 dev tunnel_1_2
+    post-down ip tunnel del tunnel_1_2
+
+sudo ifdown tunnel_1_2 && sudo ifup tunnel_1_2
