@@ -16,8 +16,9 @@ HOW TO USE
 
 [3] The following commands should be run once mininet starts in each VM
 
-zebra -g root  -f /usr/local/etc/r1zebra.conf -d -z ~/r1zebra.api -i ~/r1zebra.interface
-ospfd -g root  -f /usr/local/etc/r1ospfd.conf -d -z ~/r1zebra.api -i ~/r1ospfd.interface
+      zebra -g root  -f /usr/local/etc/r1zebra.conf -d -z ~/r1zebra.api -i ~/r1zebra.interface
+
+      ospfd -g root  -f /usr/local/etc/r1ospfd.conf -d -z ~/r1zebra.api -i ~/r1ospfd.interface
 
 [4] now ping from one vm to other. The routers are SDN and will learn paths quickly reducing the time taken after one or two pings.
 
